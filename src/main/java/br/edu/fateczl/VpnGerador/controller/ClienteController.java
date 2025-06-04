@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ClienteController {
-	
+
 	@RequestMapping(name = "cliente", value = "/cliente", method = RequestMethod.GET)
 	public ModelAndView clienteGet(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
 	    String requestedWith = request.getHeader("X-Requested-With");
@@ -26,17 +26,27 @@ public class ClienteController {
 	        return new ModelAndView("redirect:/index"); // ou uma página de acesso negado
 	    }
 		Funcionario funcionario1 = new Funcionario();
-		funcionario1.setNome("David Fagoni");
+		funcionario1.setNome("Aavid Fagoni");
 		funcionario1.setPermissao("Administrador");
-		
+
 		Funcionario funcionario2 = new Funcionario();
-		funcionario2.setNome("David Fagoni");
+		funcionario2.setNome("1Favid Fagoni");
 		funcionario2.setPermissao("Funcionario");
-		
+
+		Funcionario funcionario3 = new Funcionario();
+		funcionario3.setNome("David Fagoni");
+		funcionario3.setPermissao("Administrador");
+
+		Funcionario funcionario4 = new Funcionario();
+		funcionario4.setNome("Zavid Fagoni");
+		funcionario4.setPermissao("Edministrador");
+
 		List<Funcionario> funcionarios = new ArrayList<>();
 		funcionarios.add(funcionario1);
 		funcionarios.add(funcionario2);
-		
+		funcionarios.add(funcionario3);
+		funcionarios.add(funcionario4);
+
 		model.addAttribute("funcionarios",funcionarios);
 		return new ModelAndView("cliente");
 	}

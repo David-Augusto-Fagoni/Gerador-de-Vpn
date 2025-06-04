@@ -17,17 +17,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "login")
 public class Login {
-	
+
 	@Id
     @Column(name = "funcionario_email", nullable = false)
     private String email;
-	
+
 	@Column(name = "usuario",length = 80, nullable = false, unique = true)
 	private String usuario;
-	
+
 	@Column(name = "senha", length = 30, nullable = false)
 	private String senha;
-	
+
 	@OneToOne
 	@JoinColumn(name = "funcionario_email")
 	@MapsId

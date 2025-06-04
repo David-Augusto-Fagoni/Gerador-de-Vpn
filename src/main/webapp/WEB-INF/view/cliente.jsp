@@ -24,20 +24,18 @@
     </div>
 
     <div class="form-container m-auto border p-2" style="max-width: 100%;">
-        <table class="table">
-            <thead>
+        <table class="table" id="myTable">
                 <tr>
-                	<th style="width: 10%;">Seleção</th>
-                    <th style="width: 70%;">Nome</th>
-                    <th style="width: 20%;">Função</th>
+                	<th style="width: 10%;text-align:center;">Seleção</th>
+                    <th style="width: 70%;" onclick="sortTable(0)">Nome</th>
+                    <th style="width: 20%;" onclick="sortTable(1)">Função</th>
                 </tr>
-            </thead>
             <tbody>
 				<c:if test="${not empty funcionarios}">
 					<c:forEach var="f" items="${funcionarios}">
 						<tr>
-							<th><input type="checkbox" name="selecao"></th>
-							<th scope="row"><c:out value="${f.nome}"/></th>
+							<td style="text-align:center"><input type="checkbox" name="selecao${f.nome}"></td>
+							<td scope="row"><c:out value="${f.nome}"/></td>
 							<td><c:out value="${f.permissao}"/></td>
 						</tr>
 					</c:forEach>
@@ -87,3 +85,4 @@
 		</div>
     </div>
 </div>
+

@@ -7,5 +7,5 @@ import br.edu.fateczl.VpnGerador.model.VpnId;
 
 
 public interface IVpnRepository extends JpaRepository<Vpn, VpnId>{
-	
+
 }

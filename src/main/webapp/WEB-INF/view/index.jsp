@@ -29,8 +29,7 @@
                         <button class="btn btn-secondary" style="width: 20%;">Sair</button>
                     </div>
 				</div>
-            </div>
-            
+            </div> 
         </div>
     </body>
 </html>

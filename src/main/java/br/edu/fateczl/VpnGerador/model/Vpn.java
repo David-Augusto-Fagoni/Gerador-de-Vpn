@@ -1,6 +1,7 @@
 package br.edu.fateczl.VpnGerador.model;
 
 import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,19 +21,19 @@ import lombok.NoArgsConstructor;
 @Table(name = "vpn")
 @IdClass(VpnId.class)
 public class Vpn {
-	
+
 	@Id
 	@Column(name = "id",length = 10, nullable = false)
 	private String id;
-	
+
 	@Column(name = "dt_criacao", nullable = false)
 	private LocalDate  dt_criacao;
-	
+
 	@Column(name = "dt_validade",nullable = false)
 	private LocalDate  dt_validade;
-	
+
 	@Id
     @ManyToOne(targetEntity = Funcionario.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "funcionarioemail",nullable = false) 
+    @JoinColumn(name = "funcionarioemail",nullable = false)
     private Funcionario funcionario;
 }

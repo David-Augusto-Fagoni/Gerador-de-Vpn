@@ -20,23 +20,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "funcionario")
 public class Funcionario {
-	
+
 	@Id
 	@Column(name = "email",length = 100, nullable = false)
 	private String email;
-	
+
 	@Column(name = "nome", nullable = false)
 	private String nome;
-	
+
 	@Column(name = "permissao", nullable = false)
 	private String permissao;
-	
+
 	@Column(name = "ativo", nullable = false)
 	private boolean ativo;
-	
+
 	@OneToMany(mappedBy = "funcionario")
 	private Set<Vpn> vpn;
-	
+
 	@OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Login login;

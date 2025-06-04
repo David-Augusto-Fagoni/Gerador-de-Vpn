@@ -6,5 +6,5 @@ import br.edu.fateczl.VpnGerador.model.Funcionario;
 
 
 public interface IFuncionarioRepository extends JpaRepository<Funcionario, String>{
-	
+
 }
