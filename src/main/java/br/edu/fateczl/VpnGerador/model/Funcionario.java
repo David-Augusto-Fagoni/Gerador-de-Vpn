@@ -29,7 +29,7 @@ public class Funcionario {
 	private String nome;
 	
 	@Column(name = "permissao", nullable = false)
-	private boolean permissao;
+	private String permissao;
 	
 	@Column(name = "ativo", nullable = false)
 	private boolean ativo;

@@ -17,9 +17,6 @@
 				<td align="center">
 					<a href = "index">login</a>
 				</td>
-				<td align="center">
-					<a href = "empregado">empregado</a>
-				</td>
 			</tr>		
 		</table>
 	</div>
