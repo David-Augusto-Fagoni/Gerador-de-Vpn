@@ -53,33 +53,35 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-					<div class="modal-body">
-						<div class="form-floating mb-3 mt-4" Style="padding-left:10%; padding-right:10%;">
-							<div>
-		                        <h5> Nome Completo </h5>
-		                        <input type="text" class="form-control" placeholder="Nome Completo" id="floatingInput" name="nomeUsuario">
-	                        </div>
-	                        <div Style="padding-top: 20px;">
-		                        <h5> Usuario </h5>
-		                        <input type="text" class="form-control" placeholder="Nome de Usuario" id="floatingInput" name="usuarioUsuario" Style="max-width: 60%">
-	                        </div>
-	                        <div Style="padding-top: 20px;">
-		                        <h5> Email </h5>
-		                        <div style="display: flex; align-items: center; gap: 10px;">
-			                        <input type="text" class="form-control" placeholder="Email" id="floatingInput" name="emailUsuario" Style="max-width: 60%">
-			                        <label> @empresa.com.br</label>
-		                       	</div>
-	                        </div>
-	                        <div Style="padding-top: 20px;">
-		                        <input type="checkbox" id="administrador" name="administrador">
-		                        <label for="administrador"> Administrador</label>
-	                        </div>
-                    	</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary">Cadastrar Funcionario</button>
-					</div>
+					<form action="cliente" method="post">
+						<div class="modal-body">
+							<div class="form-floating mb-3 mt-4" Style="padding-left:10%; padding-right:10%;">
+								<div>
+			                        <h5> Nome Completo </h5>
+			                        <input type="text" class="form-control" placeholder="Nome Completo" id="floatingInput" name="nomeFuncionario">
+		                        </div>
+		                        <div Style="padding-top: 20px;">
+			                        <h5> Usuario </h5>
+			                        <input type="text" class="form-control" placeholder="Nome de Usuario" id="floatingInput" name="usuarioFuncionario" Style="max-width: 60%">
+		                        </div>
+		                        <div Style="padding-top: 20px;">
+			                        <h5> Email </h5>
+			                        <div style="display: flex; align-items: center; gap: 10px;">
+				                        <input type="text" class="form-control" placeholder="Email" id="floatingInput" name="emailFuncionario" Style="max-width: 60%">
+				                        <label> @empresa.com.br</label>
+			                       	</div>
+		                        </div>
+		                        <div Style="padding-top: 20px;">
+			                        <input type="checkbox" id="administrador" name="administradorCheck">
+			                        <label for="administrador"> Administrador</label>
+		                        </div>
+	                    	</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+							<button type="submit" class="btn btn-primary">Cadastrar Funcionario</button>
+						</div>
+					</form>
 			    </div>
 			</div>
 		</div>

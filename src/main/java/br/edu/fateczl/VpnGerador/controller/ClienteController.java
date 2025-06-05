@@ -50,4 +50,13 @@ public class ClienteController {
 		model.addAttribute("funcionarios",funcionarios);
 		return new ModelAndView("cliente");
 	}
+	
+	@RequestMapping(name = "cliente", value = "/cliente", method = RequestMethod.POST)
+	public ModelAndView clientePost(@RequestParam Map<String, String> allRequestParam) {
+		String usuario = allRequestParam.get("usuarioFuncionario").trim();
+		String nome = allRequestParam.get("nomeFuncionario").trim();
+		String email = allRequestParam.get("emailFuncionario").trim()+"@empresa.com.br";
+		String administrador = allRequestParam.get("administradorCheck");
+		return new ModelAndView("menu");
+	}
 }
