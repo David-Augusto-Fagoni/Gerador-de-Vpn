@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "login")
+@NamedNativeQuery(
+		name = "Login_fn_login",
+		query = "SELECT * FROM fn_login(?1,?2)",
+		resultClass = String.class	
+)
 public class Login {
 
 	@Id
@@ -32,4 +38,12 @@ public class Login {
 	@JoinColumn(name = "funcionario_email")
 	@MapsId
     private Funcionario funcionario;
+
+	public Login(String usuario, String senha, Funcionario funcionario) {
+		super();
+		this.usuario = usuario;
+		this.senha = senha;
+		this.funcionario = funcionario;
+	}
+	
 }

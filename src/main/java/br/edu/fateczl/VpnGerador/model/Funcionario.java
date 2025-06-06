@@ -40,4 +40,13 @@ public class Funcionario {
 	@OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Login login;
+
+	public Funcionario(String email, String nome, String permissao, Boolean ativo) {
+		super();
+		this.email = email;
+		this.nome = nome;
+		this.permissao = permissao;
+		this.ativo = ativo;
+	}
+	
 }
