@@ -48,5 +48,5 @@ public class Funcionario {
 		this.permissao = permissao;
 		this.ativo = ativo;
 	}
-	
+
 }

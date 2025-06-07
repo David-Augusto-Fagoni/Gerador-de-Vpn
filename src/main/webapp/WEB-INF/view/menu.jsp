@@ -26,7 +26,7 @@
                 <div class="border p-2" style="width: 100%; height: 100%; display: grid; grid-template-columns: 16% 1% 83%;">
                     <div class="m-auto border p-2" style="width: 100%;height: 100%; display: grid;grid-template-columns: 100%;">
                     	<p>Opçoes:</p>
-		                <a class="menu-link" onclick="carregarConteudo('cliente')" style="padding-left: 20px;">•Cliente</a>
+		                <a class="menu-link" onclick="carregarConteudo('funcionario')" style="padding-left: 20px;">•Cliente</a>
 		                <a class="menu-link" onclick="carregarConteudo('vpn')" style="padding-left: 20px;">•VPN</a>
                     </div>
                     <div></div>
@@ -64,6 +64,14 @@
 		        });
 		    }
 		    </script>
+		    <script>
+		    function enviarAcao() {
+		        const select = document.getElementById("acaoSelect");
+		        if (select.value !== "") {
+		            document.getElementById("formAcaoFuncionario").submit();
+		        }
+		    }
+			</script>
 		    <script>
 		    function sortTable(n) {
 		      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;

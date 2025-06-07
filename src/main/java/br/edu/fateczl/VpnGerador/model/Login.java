@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NamedNativeQuery(
 		name = "Login_fn_login",
 		query = "SELECT * FROM fn_login(?1,?2)",
-		resultClass = String.class	
+		resultClass = String.class
 )
 public class Login {
 
@@ -45,5 +45,5 @@ public class Login {
 		this.senha = senha;
 		this.funcionario = funcionario;
 	}
-	
+
 }

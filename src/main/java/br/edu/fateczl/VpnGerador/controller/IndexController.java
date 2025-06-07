@@ -1,7 +1,7 @@
 package br.edu.fateczl.VpnGerador.controller;
- 
+
 import java.util.Map;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
- 
+
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.repository.ILoginRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
- 
+
 @Controller
 public class IndexController {
 	@Autowired
 	private ILoginRepository loginRep;
- 
+
 	@RequestMapping(name = "index", value = "/index", method = RequestMethod.GET)
 	public ModelAndView deptoGet(HttpServletRequest request, ModelMap model) {
 		 HttpSession session = request.getSession(false);
@@ -49,7 +49,7 @@ public class IndexController {
 		model.addAttribute("erro",erro);
 		return new ModelAndView("index");
 	}
-	
+
 	public boolean verificarLogin (HttpServletRequest request) {
 		 HttpSession session = request.getSession(false);
 		 if (session == null) {
@@ -68,4 +68,3 @@ public class IndexController {
 		return "";
 	}
 }
- 

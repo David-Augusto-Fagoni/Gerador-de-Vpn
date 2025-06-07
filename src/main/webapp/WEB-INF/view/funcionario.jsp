@@ -3,45 +3,47 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div>
-    <div>
-        <form action="/action_page.php">
+	<form action="acaoFuncionario" method="post" id="formAcaoFuncionario">
+   		<div>
+        
             <input type="text" placeholder="Search.." name="search">
             <button type="submit"><i class="fa fa-search">Procurar</i></button>
-        </form>
-    </div>
+    	</div>
 
-    <div style="width: 100%; height: 100%; display: grid; grid-template-columns: 20% 60% 20%; padding-top: 1%;">
-        <select name="cars" id="cars" style="border-color:rgb(1,1,1) !important;">
-	        <option value="editar">-- Editar --</option>
-			<option value="elegerAdm">Eleger como administrador</option>
-			<option value="revogarAdm">Revogar administrador</option>
-			<option value="revogarAcess">Revogar acesso</option>
-			<option value="ativarAcess">Ativar acesso</option>
-			<option value="removerCad">Remover o cadastro</option>	
-		</select>
-        <div class="form-container m-auto border p-2" style="width: 100%; height: 100%; border-color:rgb(1,1,1) !important;"></div>
-        <button type="button" class="fa fa-edit" data-toggle="modal" data-target="#exampleModal"> Novo </button>
-    </div>
+	    <div style="width: 100%; height: 100%; display: grid; grid-template-columns: 20% 60% 20%; padding-top: 1%;">
+		        <select name="acao" id="acaoSelect" onchange="enviarAcao()" style="border-color:rgb(1,1,1) !important;">
+			        <option value="">-- Editar --</option>
+					<option value="elegerAdm">Eleger como administrador</option>
+					<option value="revogarAdm">Revogar administrador</option>
+					<option value="revogarAcess">Revogar acesso</option>
+					<option value="ativarAcess">Ativar acesso</option>
+					<option value="removerCad">Remover o cadastro</option>	
+				</select>
+	        <div class="form-container m-auto border p-2" style="width: 100%; height: 100%; border-color:rgb(1,1,1) !important;"></div>
+	        <button type="button" class="fa fa-edit" data-toggle="modal" data-target="#exampleModal"> Novo </button>
+	    </div>
 
-    <div class="form-container m-auto border p-2" style="max-width: 100%;">
-        <table class="table" id="myTable">
-                <tr>
-                	<th style="width: 10%;text-align:center;">Seleção</th>
-                    <th style="width: 70%;" onclick="sortTable(0)">Nome</th>
-                    <th style="width: 20%;" onclick="sortTable(1)">Função</th>
-                </tr>
-            <tbody>
-				<c:if test="${not empty funcionarios}">
-					<c:forEach var="f" items="${funcionarios}">
-						<tr>
-							<td style="text-align:center"><input type="checkbox" name="selecao${f.nome}"></td>
-							<td scope="row"><c:out value="${f.nome}"/></td>
-							<td><c:out value="${f.permissao}"/></td>
-						</tr>
-					</c:forEach>
-				</c:if>
-            </tbody>
-        </table>
+	    <div class="form-container m-auto border p-2" style="max-width: 100%;">
+	        <table class="table" id="myTable">
+	                <tr>
+	                	<th style="width: 10%;text-align:center;">Seleção</th>
+	                    <th style="width: 70%;" onclick="sortTable(1)">Nome</th>
+	                    <th style="width: 20%;" onclick="sortTable(2)">Função</th>
+	                </tr>
+	            <tbody>
+					<c:if test="${not empty funcionarios}">
+						<c:forEach var="f" items="${funcionarios}">
+							<tr>
+								<td style="text-align:center"><input type="checkbox" name="selecionados" value="${f.email}"></td>
+								<td scope="row"><c:out value="${f.nome}"/></td>
+								<td><c:out value="${f.permissao}"/></td>
+							</tr>
+						</c:forEach>
+					</c:if>
+	            </tbody>
+	        </table>
+	    </div>
+	</form>
 			
 			<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -85,6 +87,7 @@
 			    </div>
 			</div>
 		</div>
-    </div>
 </div>
+
+
 
