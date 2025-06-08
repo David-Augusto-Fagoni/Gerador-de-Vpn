@@ -1,5 +1,6 @@
 package br.edu.fateczl.VpnGerador.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -38,6 +39,9 @@ public class Login {
 
 	@Column(name = "senha", length = 30, nullable = false)
 	private String senha;
+	
+    @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
+    private TokenRedefinicao tokenRedefinicao;
 
 	@OneToOne
 	@JoinColumn(name = "funcionario_email")

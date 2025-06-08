@@ -39,27 +39,30 @@ public class IndexController {
 		if ( erro == "") {
 			if (loginRep.fn_login(usuario,senha) != null) {
 				HttpSession session = request.getSession();
-				session.setAttribute("login", usuario);
+				session.setAttribute("login", login);
 				return new ModelAndView("redirect:/vpn");
 			} else {
 				erro = "Login invalido";
 			}
 		}
-		model.addAttribute("login",login);
 		model.addAttribute("erro",erro);
 		return new ModelAndView("index");
 	}
 
-	public boolean verificarLogin (HttpServletRequest request) {
+	public String verificarLogin (HttpServletRequest request) {
 		 HttpSession session = request.getSession(false);
 		 if (session == null) {
-			 return false;
+			 return "";
 		 }
 		 Login login = (Login) session.getAttribute("login");
 		 if (login == null) {
-			 return false;
+			 return "";
 		 }
-		 return true;
+		 String permissao = loginRep.fn_login(login.getUsuario(), login.getSenha());
+		 if (permissao == null) {
+			 return "";
+		 }
+		 return permissao;
 	}
 	
 	private String validar (String usuario, String senha) {

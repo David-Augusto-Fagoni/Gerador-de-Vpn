@@ -7,10 +7,11 @@ RETURNS @tabela TABLE (
 ) AS BEGIN
 	DECLARE @novoUsu VARCHAR(80),
 			@novoSen VARCHAR(30)
-	SELECT  @novoUsu = l.usuario, @novoSen = l.senha
-	FROM login l
+	SELECT  @novoUsu = f.permissao
+	FROM login l, funcionario f
 	WHERE l.senha = @senha
 	AND l.usuario = @usuario
+	AND l.funcionario_email = f.email
 	INSERT INTO @tabela VALUES (@novoUsu)
 	RETURN
 END
@@ -41,6 +42,11 @@ BEGIN
     RETURN @usuario
 END
 
+CREATE PROCEDURE sp_del_token(@email VARCHAR(255)) AS
+	IF EXISTS(SELECT * FROM token_redefinicao t WHERE t.login_email = @email) BEGIN
+		DELETE token_redefinicao
+		WHERE login_email = @email
+	END
 
 Select *
 FROM funcionario f
@@ -51,12 +57,30 @@ FROM login, funcionario
 
 SELECT * FROM fn_procNome('D')
 
+INSERT INTO funcionario
+VALUES(1,'david.fagoni@gmail.com@empresa.com.br','DAVEWQEW','Administrador')
+INSERT INTO login
+VALUES(123456,'Dave','david.fagoni@gmail.com@empresa.com.br')
+
 UPDATE login
 SET senha = '123456789', usuario = 'Daves'
-WHERE funcionario_email = 'Dawvedwd@empresa.com.br'
+WHERE funcionario_email = 'DSADASDASDASD@empresa.com.br'
+
+UPDATE funcionario
+SET permissao = 'Administrador'
+WHERE email= 'DSADASDASDASD@empresa.com.br'
 
 EXEC fn_procUsuario ('a')
 
 SELECT fn_procUsuario('a')
 
 SELECT dbo.fn_procUsuario('admin')
+
+	SELECT  *
+	FROM login l, funcionario f
+	WHERE l.senha = '123456789'
+	AND l.usuario = 'Daves'
+	AND l.funcionario_email = f.email
+
+SELECT *
+FROM token_redefinicao

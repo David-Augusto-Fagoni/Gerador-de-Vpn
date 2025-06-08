@@ -26,7 +26,10 @@
 	                        <input type="text" class="form-control input-height" placeholder="Senha de Usuario" id="floatingInput" name="senhaFuncionario" value='<c:out value="${login.senha}"></c:out>'>
 	                    </div>
 	                    <div class="d-flex">
-	                        <button type="submit" class="btn btn-secondary" style="width: 20%;">Sair</button>
+	                        <a href="./esqueciSenha">Esqueci minha senha/Primeiro acesso</a>
+	                    </div>
+	                    <div class="d-flex">
+	                        <button type="submit" class="btn btn-secondary" style="width: 20%;">Entrar</button>
 	                    </div>
 					</div>
 					<div>

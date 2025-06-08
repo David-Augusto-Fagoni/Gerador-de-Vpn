@@ -30,7 +30,7 @@
 			        <form action="/">
 			            <input type="text" placeholder="Search.." name="search">
 			            <button type="submit"><i class="fa fa-search">Procurar</i></button>
-			        </form>
+			        </form>	
 			    </div>
 			
 			    <div style="display: grid; grid-template-columns: 20% 60% 20%; padding-top: 1%;">

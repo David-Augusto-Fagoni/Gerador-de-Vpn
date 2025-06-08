@@ -18,6 +18,7 @@ import br.edu.fateczl.VpnGerador.model.Funcionario;
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.repository.IFuncionarioRepository;
 import br.edu.fateczl.VpnGerador.repository.ILoginRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class FuncionarioController {
@@ -25,9 +26,15 @@ public class FuncionarioController {
 	private IFuncionarioRepository funcionarioRep;
 	@Autowired
 	private ILoginRepository loginRep;
+	@Autowired
+	private IndexController indexC;
 
 	@RequestMapping(name = "funcionario", value = "/funcionario", method = RequestMethod.GET)
-	public ModelAndView funcionarioGet(@RequestParam Map<String, String> params, ModelMap model,RedirectAttributes redirectAttributes) {
+	public ModelAndView funcionarioGet(@RequestParam Map<String, String> params, ModelMap model,RedirectAttributes redirectAttributes,HttpServletRequest request) {
+		switch (indexC.verificarLogin(request)) {
+			case "" -> {return new ModelAndView("redirect:/index");}
+			case "Funcionario" -> {return new ModelAndView("redirect:/vpn");}
+		}
 		String erro = (String) model.get("erro");
 		List<Funcionario> funcionarios = new ArrayList<>();
 		if(model.get("funcionarios") == null) {
