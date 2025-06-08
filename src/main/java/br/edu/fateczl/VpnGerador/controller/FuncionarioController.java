@@ -17,11 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.fateczl.VpnGerador.model.Funcionario;
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.repository.IFuncionarioRepository;
+import br.edu.fateczl.VpnGerador.repository.ILoginRepository;
 
 @Controller
 public class FuncionarioController {
 	@Autowired
 	private IFuncionarioRepository funcionarioRep;
+	@Autowired
+	private ILoginRepository loginRep;
 
 	@RequestMapping(name = "funcionario", value = "/funcionario", method = RequestMethod.GET)
 	public ModelAndView funcionarioGet(@RequestParam Map<String, String> params, ModelMap model,RedirectAttributes redirectAttributes) {
@@ -132,10 +135,10 @@ public class FuncionarioController {
 			return ("Todos os campos devem ser preenchidos");
 		}
 		if (email.length() > 80) {return ("Email deve ter menos de 80 caracteres");}
-		Funcionario funcionario = consultarFuncionario(email);
+		Funcionario funcionario = consultarFuncionario(email+"@empresa.com.br");
 		if (funcionario != null) {return ("Email ja cadastrado");}
 		if(usuario.length()>70) {return ("Usuario deve ter menos de 70 caracteres");}
-		//PRECISA CONSULTAR SE O USUARIO JA ESTA CADASTRADO
+		if(loginRep.fn_procUsuario(usuario) != null) {return ("Usuario ja existe");}
 		if(nome.length()>200) {return ("Usuario deve ter menos de 200 caracteres");}
 		return "";
 	}

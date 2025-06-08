@@ -16,9 +16,9 @@
     <!-- Adicione aqui os links para Bootstrap, FontAwesome etc. se necessário -->
 </head>
 	<body>
-	<div align="center">
-		<jsp:include page="header.jsp" />
-	</div>
+		<div class="text-end">
+		  <a href="/VPN/index" class="btn btn-secondary d-inline-block text-center" style="width: 20%;">Sair</a>
+		</div>
 		<div class="border p-2" style="width: 100%; height: 100%; display: grid; grid-template-columns: 16% 1% 83%;">
 			<div style="width: 100%;height: 100%;">
 				<jsp:include page="menu.jsp" />

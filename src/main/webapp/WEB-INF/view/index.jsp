@@ -12,9 +12,6 @@
 	<title>Lista de Funcionários</title>
 </head>
     <body>
-    	<div align="center">
-			<jsp:include page="header.jsp" />
-		</div>
         <div style="padding: 10%;">
             <div>
             	<form action="index" method="post">

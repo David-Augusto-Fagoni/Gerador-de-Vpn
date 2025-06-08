@@ -29,6 +29,19 @@ RETURNS @tabela TABLE (
 	RETURN
 END
 
+CREATE FUNCTION fn_procUsuario (@nome VARCHAR(80))
+RETURNS VARCHAR(100)
+AS
+BEGIN
+    DECLARE @usuario VARCHAR(100)
+    SELECT @usuario = l.usuario
+    FROM login l
+    WHERE l.usuario = @nome
+
+    RETURN @usuario
+END
+
+
 Select *
 FROM funcionario f
 WHERE f.nome LIKE '%D%'
@@ -37,3 +50,13 @@ SELECT *
 FROM login, funcionario
 
 SELECT * FROM fn_procNome('D')
+
+UPDATE login
+SET senha = '123456789', usuario = 'Daves'
+WHERE funcionario_email = 'Dawvedwd@empresa.com.br'
+
+EXEC fn_procUsuario ('a')
+
+SELECT fn_procUsuario('a')
+
+SELECT dbo.fn_procUsuario('admin')

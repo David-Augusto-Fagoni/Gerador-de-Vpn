@@ -22,6 +22,11 @@ import lombok.NoArgsConstructor;
 		query = "SELECT * FROM fn_login(?1,?2)",
 		resultClass = String.class
 )
+@NamedNativeQuery(
+		name = "Login.fn_procUsuario",
+		query = "SELECT fn_procUsuario(?1)",
+		resultClass = String.class
+)
 public class Login {
 
 	@Id

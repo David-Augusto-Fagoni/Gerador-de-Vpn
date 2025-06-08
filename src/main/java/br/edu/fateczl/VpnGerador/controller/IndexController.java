@@ -21,7 +21,7 @@ public class IndexController {
 	private ILoginRepository loginRep;
 
 	@RequestMapping(name = "index", value = "/index", method = RequestMethod.GET)
-	public ModelAndView deptoGet(HttpServletRequest request, ModelMap model) {
+	public ModelAndView loginGet(HttpServletRequest request, ModelMap model) {
 		 HttpSession session = request.getSession(false);
 		 if (session != null) {
 			 session.removeAttribute("login");
@@ -29,7 +29,7 @@ public class IndexController {
 		 return new ModelAndView("index");
 	}
 	@RequestMapping(name = "index", value = "/index", method = RequestMethod.POST)
-	public ModelAndView projetoPost(@RequestParam Map<String, String> allRequestParam,HttpServletRequest request,ModelMap model) {
+	public ModelAndView loginPost(@RequestParam Map<String, String> allRequestParam,HttpServletRequest request,ModelMap model) {
 		String usuario = allRequestParam.get("usuarioFuncionario").trim();
 		String senha = allRequestParam.get("senhaFuncionario").trim();
 		String erro = validar(usuario, senha);
@@ -40,9 +40,9 @@ public class IndexController {
 			if (loginRep.fn_login(usuario,senha) != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("login", usuario);
-				return new ModelAndView("redirect:/menu");
+				return new ModelAndView("redirect:/vpn");
 			} else {
-				erro = "Funcionario não encontrado";
+				erro = "Login invalido";
 			}
 		}
 		model.addAttribute("login",login);
@@ -61,6 +61,7 @@ public class IndexController {
 		 }
 		 return true;
 	}
+	
 	private String validar (String usuario, String senha) {
 		if(usuario == null || usuario == "") {return "Usuario deve ser preenchido";}
 		if(senha == null || senha == "") {return "Senha deve ser preenchido";}
