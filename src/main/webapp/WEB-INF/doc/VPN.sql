@@ -15,5 +15,25 @@ RETURNS @tabela TABLE (
 	RETURN
 END
 
+CREATE FUNCTION fn_procNome (@nome VARCHAR (80))
+RETURNS @tabela TABLE (
+	ativo		bit,
+	email		VARCHAR(100),
+	nome		VARCHAR(255),
+	permissao	VARCHAR(255)
+) AS BEGIN
+	INSERT INTO @tabela (ativo, email, nome, permissao)
+	SELECT f.ativo, f.email, f.nome, f.permissao
+	FROM funcionario f
+	WHERE f.nome LIKE '%'+@nome+'%'
+	RETURN
+END
+
+Select *
+FROM funcionario f
+WHERE f.nome LIKE '%D%'
+
 SELECT * 
 FROM login, funcionario
+
+SELECT * FROM fn_procNome('D')

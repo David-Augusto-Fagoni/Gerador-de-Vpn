@@ -19,12 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class VpnController {
 	@RequestMapping(name = "vpn", value = "/vpn", method = RequestMethod.GET)
 	public ModelAndView vpnGet(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
-	    String requestedWith = request.getHeader("X-Requested-With");
 
-	    if (!"XMLHttpRequest".equals(requestedWith)) {
-	        // Se não for AJAX, retorna erro ou redireciona
-	        return new ModelAndView("redirect:/index"); // ou uma página de acesso negado
-	    }
 	    Vpn vpn1 = new Vpn();
 	    vpn1.setId("1234567890");
 	    vpn1.setDt_criacao(LocalDate.parse("2018-12-15"));

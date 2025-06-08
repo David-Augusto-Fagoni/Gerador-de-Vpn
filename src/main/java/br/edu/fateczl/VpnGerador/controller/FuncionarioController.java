@@ -12,31 +12,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.fateczl.VpnGerador.model.Funcionario;
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.repository.IFuncionarioRepository;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class FuncionarioController {
 	@Autowired
 	private IFuncionarioRepository funcionarioRep;
-	@RequestMapping(name = "funcionario", value = "/funcionario", method = RequestMethod.GET)
-	public ModelAndView clienteGet(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
-	    String requestedWith = request.getHeader("X-Requested-With");
-	    if (!"XMLHttpRequest".equals(requestedWith)) {
-	        // Se não for AJAX, retorna erro ou redireciona
-	        return new ModelAndView("redirect:/index"); // ou uma página de acesso negado
-	    }
-		List<Funcionario> funcionarios = listarFuncionario();
 
-		model.addAttribute("funcionarios",funcionarios);
-		model.addAttribute("erro","");
-		return new ModelAndView("funcionario");
+	@RequestMapping(name = "funcionario", value = "/funcionario", method = RequestMethod.GET)
+	public ModelAndView funcionarioGet(@RequestParam Map<String, String> params, ModelMap model,RedirectAttributes redirectAttributes) {
+		String erro = (String) model.get("erro");
+		List<Funcionario> funcionarios = new ArrayList<>();
+		if(model.get("funcionarios") == null) {
+			funcionarios = listarFuncionario();
+		} else {
+			funcionarios = (List<Funcionario>) model.get("funcionarios");
+		}
+	    model.addAttribute("funcionarios", funcionarios);
+	    model.addAttribute("erro", erro);
+	    return new ModelAndView("funcionario");
 	}
+
+
 	@RequestMapping(name = "funcionario", value = "/funcionario", method = RequestMethod.POST)
-	public ModelAndView clientePost(@RequestParam Map<String, String> allRequestParam,ModelMap model) {
+	public ModelAndView funcionarioPost(@RequestParam Map<String, String> allRequestParam,ModelMap model,RedirectAttributes redirectAttributes) {
 		String usuario = allRequestParam.get("usuarioFuncionario").trim();
 		String nome = allRequestParam.get("nomeFuncionario").trim();
 		String email = allRequestParam.get("emailFuncionario").trim();
@@ -53,21 +56,21 @@ public class FuncionarioController {
 			funcionario.setLogin(login);
 			cadastrarFuncionario(funcionario);
 		}
-		model.addAttribute("erro",erro);
-		return new ModelAndView("redirect:/menu");
+		redirectAttributes.addFlashAttribute("erro",erro);
+		return new ModelAndView("redirect:/funcionario");
 	}
 	@RequestMapping(name = "funcionario", value = "/acaoFuncionario", method = RequestMethod.POST)
-	public ModelAndView acaoPost(@RequestParam Map<String, String> allRequestParam,@RequestParam(value = "selecionados", required = false) String[] selecionados,ModelMap model) {
+	public ModelAndView acaoPost(@RequestParam Map<String, String> allRequestParam,@RequestParam(value = "selecionados", required = false) String[] selecionados,ModelMap model,RedirectAttributes redirectAttributes) {
 		String acao = allRequestParam.get("acao").trim();
 		String erro = "";
 	    System.out.println("Ação selecionada: " + acao);
-	    List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+	    List<Funcionario> funcionarios = new ArrayList<>();
 	    if (selecionados != null) {
 	    	funcionarios = procurarFuncionarioById(selecionados);
 	    } else {
 	    	erro = "Nenhum funcionario selecionado";
-	    	model.addAttribute("erro",erro);
-	    	return new ModelAndView("redirect:/menu");
+	    	redirectAttributes.addFlashAttribute("erro",erro);
+	    	return new ModelAndView("redirect:/funcionario");
 	    }
 	    switch (acao.trim()) {
 	    	case "elegerAdm" -> {
@@ -102,9 +105,28 @@ public class FuncionarioController {
 	    	}
 	    	default -> erro = "Comando não reconhecido";
 	    }
-	    model.addAttribute("erro",erro);
-	    return new ModelAndView("redirect:/menu");
+	    redirectAttributes.addFlashAttribute("erro",erro);
+	    redirectAttributes.addFlashAttribute("funcionarios", funcionarios);
+	    return new ModelAndView("redirect:/funcionario");
+
 	}
+	@RequestMapping(name = "funcionario", value = "/procFuncionario", method = RequestMethod.POST)
+	public ModelAndView procFuncionarioPost(@RequestParam Map<String, String> allRequestParam,ModelMap model,RedirectAttributes redirectAttributes) {
+		String erro = "";
+		String nome = allRequestParam.get("nomeFuncionario").trim();
+		List<Funcionario> funcionarios= procurarFuncionariosByNome(nome);
+		if (funcionarios.size() == 0) {
+			erro = "Sem resultados";
+			funcionarios = null;
+		}
+		redirectAttributes.addFlashAttribute("erro",erro);
+		redirectAttributes.addFlashAttribute("funcionarios",funcionarios);
+		return new ModelAndView("redirect:/funcionario");
+	}
+
+	
+//-----------------------------------	
+	
 	private String validar(String usuario, String nome, String email, String administrador) {
 		if(usuario == "" || usuario == null || nome =="" || nome ==null || email == "" || email == null || administrador == null) {
 			return ("Todos os campos devem ser preenchidos");
@@ -127,6 +149,9 @@ public class FuncionarioController {
 			}
 		}
 		return funcionarios;
+	}
+	private List<Funcionario> procurarFuncionariosByNome(String nome) {
+	    return funcionarioRep.fn_procNome(nome);
 	}
 	private void cadastrarFuncionario(Funcionario funcionario) {
 		funcionarioRep.save(funcionario);
