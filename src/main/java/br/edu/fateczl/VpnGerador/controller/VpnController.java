@@ -3,6 +3,7 @@ package br.edu.fateczl.VpnGerador.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.model.Vpn;
+import br.edu.fateczl.VpnGerador.repository.IFuncionarioRepository;
 import br.edu.fateczl.VpnGerador.repository.IVpnRepository;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -21,6 +23,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class VpnController {
+	@Autowired
+	private IFuncionarioRepository funcionarioRep;
 	@Autowired
 	private IVpnRepository vpnRep;
 	@Autowired
@@ -44,8 +48,9 @@ public class VpnController {
 		case "" -> {return new ModelAndView("redirect:/index");}
 	}
 		Vpn vpn = new Vpn();
+		vpn.setId(gerarId());
+//		vpn.setFuncionario(funcionarioRep.findById(null));
 		Login login = (Login) request.getAttribute("login");
-
 		ProcessBuilder pb = new ProcessBuilder("sudo","/home/userlinux", "VPNscript.sh", login.getUsuario(), login.getSenha(), vpn.getId());
 		try {
 			pb.start();
@@ -63,5 +68,16 @@ public class VpnController {
 
 	private List<Vpn> listarFuncionario() {
 		return vpnRep.findAll();
+	}
+	private String gerarId() {
+		String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 7; i++) {
+            int indice = random.nextInt(caracteres.length());
+            sb.append(caracteres.charAt(indice));
+		}
+		return sb.toString();
+		
 	}
 }
