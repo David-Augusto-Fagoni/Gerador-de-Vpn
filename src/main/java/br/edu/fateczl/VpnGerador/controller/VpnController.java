@@ -17,6 +17,10 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class VpnController {
+	// Adicionar VPN, script
+	// Remover VPN em List, Excluir do banco e arquivo
+	// Procura de VPN por identificador
+	// Download de VPN
 	@RequestMapping(name = "vpn", value = "/vpn", method = RequestMethod.GET)
 	public ModelAndView vpnGet(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
 
