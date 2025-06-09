@@ -36,7 +36,9 @@
 			    <div style="display: grid; grid-template-columns: 20% 60% 20%; padding-top: 1%;">
 			        <button type="button" class="fa fa-edit"> Remover </button>
 			        <div class="form-container m-auto border p-2" style="width: 100%; height: 100%; border-color:rgb(1,1,1) !important;"></div>
-			        <button type="button" class="fa fa-edit" data-toggle="modal" data-target="#exampleModal"> Novo </button>
+			        <form action="vpn" method="post">
+			        	<button type="submit" class="fa fa-edit"> Novo </button>
+			        </form>
 			    </div>
 			
 			    <div class="form-container m-auto border p-2" style="max-width: 100%;">
@@ -64,47 +66,6 @@
 							</c:if>
 			            </tbody>
 			        </table>
-			
-			        <!-- Modal -->
-			        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			            <div class="modal-dialog modal-dialog-centered" style="max-width: 80% !important; height: 80vh !important;">
-			                <div class="modal-content">
-			                    <div class="modal-header d-flex justify-content-between align-items-center">
-			                        <h5 class="modal-title" id="exampleModalLabel">Adicionando novo funcionário</h5>
-			                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			                            <span aria-hidden="true">&times;</span>
-			                        </button>
-			                    </div>
-			                    <div class="modal-body">
-			                        <div class="form-floating mb-3 mt-4" style="padding-left:10%; padding-right:10%;">
-			                            <div>
-			                                <h5> Nome Completo </h5>
-			                                <input type="text" class="form-control" placeholder="Nome Completo" id="floatingInput" name="nomeUsuario">
-			                            </div>
-			                            <div style="padding-top: 20px;">
-			                                <h5> Usuário </h5>
-			                                <input type="text" class="form-control" placeholder="Nome de Usuário" id="floatingInput" name="usuarioUsuario" style="max-width: 60%;">
-			                            </div>
-			                            <div style="padding-top: 20px;">
-			                                <h5> Email </h5>
-			                                <div style="display: flex; align-items: center; gap: 10px;">
-			                                    <input type="text" class="form-control" placeholder="Email" id="floatingInput" name="emailUsuario" style="max-width: 60%;">
-			                                    <label> @empresa.com.br</label>
-			                                </div>
-			                            </div>
-			                            <div style="padding-top: 20px;">
-			                                <input type="checkbox" id="administrador" name="administrador">
-			                                <label for="administrador"> Administrador</label>
-			                            </div>
-			                        </div>
-			                    </div>
-			                    <div class="modal-footer">
-			                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-			                        <button type="button" class="btn btn-primary">Cadastrar Funcionário</button>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
 			    </div>
 		    </div>
 		</div>
