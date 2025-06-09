@@ -27,14 +27,14 @@ CREATE FUNCTION fn_procUsuario(nome VARCHAR(80))
 RETURNS VARCHAR(100)
 DETERMINISTIC
 BEGIN
-    DECLARE usuario VARCHAR(100);
+    DECLARE email VARCHAR(100);
 
-    SELECT l.usuario INTO usuario
+    SELECT l.funcionario_email INTO email
     FROM login l
     WHERE l.usuario = nome
     LIMIT 1;
 
-    RETURN usuario;
+    RETURN email;
 END$$
 
 DELIMITER ;

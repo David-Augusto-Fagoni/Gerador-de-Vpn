@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.model.Vpn;
 import br.edu.fateczl.VpnGerador.repository.IFuncionarioRepository;
+import br.edu.fateczl.VpnGerador.repository.ILoginRepository;
 import br.edu.fateczl.VpnGerador.repository.IVpnRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -25,6 +27,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class VpnController {
 	@Autowired
 	private IFuncionarioRepository funcionarioRep;
+	@Autowired
+	private ILoginRepository loginRep;
 	@Autowired
 	private IVpnRepository vpnRep;
 	@Autowired
@@ -47,10 +51,13 @@ public class VpnController {
 	switch (indexC.verificarLogin(request)) {
 		case "" -> {return new ModelAndView("redirect:/index");}
 	}
+		HttpSession session = request.getSession(false);
+		Login login = (Login) session.getAttribute("login");
 		Vpn vpn = new Vpn();
+		String email = loginRep.fn_procUsuario(login.getUsuario());
+		vpn.setFuncionario(funcionarioRep.findById(email).get());
 		vpn.setId(gerarId());
-//		vpn.setFuncionario(funcionarioRep.findById(null));
-		Login login = (Login) request.getAttribute("login");
+		
 		ProcessBuilder pb = new ProcessBuilder("sudo","/home/userlinux", "VPNscript.sh", login.getUsuario(), login.getSenha(), vpn.getId());
 		try {
 			pb.start();
