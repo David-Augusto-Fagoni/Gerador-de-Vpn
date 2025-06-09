@@ -134,9 +134,9 @@ public class FuncionarioController {
 		return new ModelAndView("redirect:/funcionario");
 	}
 
-	
-//-----------------------------------	
-	
+
+//-----------------------------------
+
 	private String validar(String usuario, String nome, String email, String administrador) {
 		if(usuario == "" || usuario == null || nome =="" || nome ==null || email == "" || email == null || administrador == null) {
 			return ("Todos os campos devem ser preenchidos");

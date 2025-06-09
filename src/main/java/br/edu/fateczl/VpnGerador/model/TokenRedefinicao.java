@@ -17,10 +17,10 @@ import lombok.Data;
 @Entity
 @Table(name = "token_redefinicao")
 @NamedStoredProcedureQuery(
-	    name = "dbo.sp_del_token",
+	    name = "TokenRedefinicao.sp_del_token",
 	    procedureName = "sp_del_token",
 	    parameters = {
-	        @StoredProcedureParameter(mode = ParameterMode.IN, name = "email", type = String.class),
+	        @StoredProcedureParameter(mode = ParameterMode.IN, name = "email", type = String.class)
 	    }
 	)
 public class TokenRedefinicao {

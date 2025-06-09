@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import br.edu.fateczl.VpnGerador.model.Login;
 
 public interface ILoginRepository extends JpaRepository<Login, String>{
-	@Query(value = "SELECT * FROM fn_login(?1,?2)", nativeQuery = true)
-	String fn_login(String usuario,String senha);
-	
-	@Query(value = "SELECT dbo.fn_procUsuario(?1)", nativeQuery = true)
-	String fn_procUsuario(String usuario);
+	@Query(value = "SELECT fn_login(?1, ?2)", nativeQuery = true)
+	String fn_login(String usuario, String senha);
+
+    @Query(value = "SELECT fn_procUsuario(?1)", nativeQuery = true)
+    String fn_procUsuario(String usuario);
 }

@@ -64,7 +64,7 @@ public class IndexController {
 		 }
 		 return permissao;
 	}
-	
+
 	private String validar (String usuario, String senha) {
 		if(usuario == null || usuario == "") {return "Usuario deve ser preenchido";}
 		if(senha == null || senha == "") {return "Senha deve ser preenchido";}

@@ -1,10 +1,10 @@
 package br.edu.fateczl.VpnGerador.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,31 +12,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.model.Vpn;
+import br.edu.fateczl.VpnGerador.repository.IVpnRepository;
 import jakarta.servlet.http.HttpServletRequest;
+
+
 
 @Controller
 public class VpnController {
+	@Autowired
+	private IVpnRepository vpnRep;
+	@Autowired
+	private IndexController indexC;
 	// Adicionar VPN, script
 	// Remover VPN em List, Excluir do banco e arquivo
 	// Procura de VPN por identificador
 	// Download de VPN
 	@RequestMapping(name = "vpn", value = "/vpn", method = RequestMethod.GET)
 	public ModelAndView vpnGet(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
-
-	    Vpn vpn1 = new Vpn();
-	    vpn1.setId("1234567890");
-	    vpn1.setDt_criacao(LocalDate.parse("2018-12-15"));
-	    vpn1.setDt_validade(LocalDate.parse("2018-12-15"));
-	    Vpn vpn2 = new Vpn();
-	    vpn2.setId("123456");
-	    vpn2.setDt_criacao(LocalDate.parse("2018-12-15"));
-	    vpn2.setDt_validade(LocalDate.parse("2018-12-15"));
-
-	    List<Vpn> vpns = new ArrayList<>();
-	    vpns.add(vpn1);
-	    vpns.add(vpn2);
+		switch (indexC.verificarLogin(request)) {
+		case "" -> {return new ModelAndView("redirect:/index");}
+	}
+	    List<Vpn> vpns = listarFuncionario();
 	    model.addAttribute("vpns", vpns);
 		return new ModelAndView("vpn");
+	}
+	@RequestMapping(name = "vpn", value = "/vpn", method = RequestMethod.POST)
+	public ModelAndView vpnPost(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
+	switch (indexC.verificarLogin(request)) {
+		case "" -> {return new ModelAndView("redirect:/index");}
+	}
+		Vpn vpn = new Vpn();
+		Login login = (Login) request.getAttribute("login");
+
+		ProcessBuilder pb = new ProcessBuilder("sudo","/home/userlinux", "VPNscript.sh", login.getUsuario(), login.getSenha(), vpn.getId());
+		try {
+			pb.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cadastrarVpn(vpn);
+		return new ModelAndView("vpn");
+	}
+
+	private void cadastrarVpn(Vpn vpn) {
+		vpnRep.save(vpn);
+	}
+
+	private List<Vpn> listarFuncionario() {
+		return vpnRep.findAll();
 	}
 }

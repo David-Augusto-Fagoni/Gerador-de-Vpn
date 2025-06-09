@@ -9,6 +9,6 @@ import br.edu.fateczl.VpnGerador.model.Funcionario;
 
 
 public interface IFuncionarioRepository extends JpaRepository<Funcionario, String>{
-	@Query(value = "SELECT * FROM fn_procNome(?1)", nativeQuery = true)
+	@Query("SELECT f FROM Funcionario f WHERE f.nome LIKE %?1%")
 	List<Funcionario> fn_procNome(String nome);
 }

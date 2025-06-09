@@ -77,6 +77,10 @@ SELECT fn_procUsuario('a')
 SELECT dbo.fn_procUsuario('admin')
 
 	SELECT  *
+
+
+
+
 	FROM login l, funcionario f
 	WHERE l.senha = '123456789'
 	AND l.usuario = 'Daves'
@@ -84,3 +88,5 @@ SELECT dbo.fn_procUsuario('admin')
 
 SELECT *
 FROM token_redefinicao
+
+Ameba486924!

@@ -2,6 +2,7 @@ package br.edu.fateczl.VpnGerador.controller;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.UUID;
 
-import br.edu.fateczl.VpnGerador.model.Funcionario;
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.model.TokenRedefinicao;
-import br.edu.fateczl.VpnGerador.repository.IFuncionarioRepository;
 import br.edu.fateczl.VpnGerador.repository.ILoginRepository;
 import br.edu.fateczl.VpnGerador.repository.ITokenRedefinicaoRepository;
 import br.edu.fateczl.VpnGerador.service.EmailService;
@@ -27,15 +25,13 @@ public class EsqueciSenhaController {
 	@Autowired
 	private ILoginRepository loginRep;
 	@Autowired
-	private IFuncionarioRepository funcionarioRep;
-	@Autowired
 	private ITokenRedefinicaoRepository tokenRep;
-	
+
 	@RequestMapping(name = "esqueciSenha", value = "/esqueciSenha", method = RequestMethod.GET)
 	public ModelAndView esqueciSenhaGet(@RequestParam Map<String, String> params, ModelMap model) {
 		return new ModelAndView("esqueciSenha");
 	}
-	
+
 	@RequestMapping(name = "esqueciSenha", value = "/esqueciSenha", method = RequestMethod.POST)
 	public ModelAndView esqueciSenhaPost(@RequestParam Map<String, String> params, ModelMap model) {
 		String email = "david.fagoni@gmail.com";
@@ -57,7 +53,7 @@ public class EsqueciSenhaController {
 		}
 		return new ModelAndView("esqueciSenha");
 	}
-	
+
 	@RequestMapping(name = "redefinirSenha", value = "/redefinirSenha", method = RequestMethod.GET)
 	public ModelAndView redefinirSenhaGet(@RequestParam("token") String token, ModelMap model) {
 		TokenRedefinicao tokenEntity = tokenRep.findById(token).orElse(null);
@@ -78,7 +74,7 @@ public class EsqueciSenhaController {
 			login.setSenha(senhaNovaC);
 			loginRep.save(login);
 		}
-		
+
 		model.addAttribute("novaSenha", senhaNova);
 		model.addAttribute("confirmarSenha", senhaNovaC);
 		model.addAttribute("erro", erro);
