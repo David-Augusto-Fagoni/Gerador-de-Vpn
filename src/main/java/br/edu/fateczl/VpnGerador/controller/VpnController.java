@@ -53,7 +53,7 @@ public class VpnController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		cadastrarVpn(vpn);
+//		cadastrarVpn(vpn);
 		return new ModelAndView("vpn");
 	}
 
