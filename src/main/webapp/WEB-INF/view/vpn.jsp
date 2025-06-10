@@ -58,7 +58,11 @@
 									<c:forEach var="v" items="${vpns}">
 										<tr>														
 											<td style="text-align:center;"><input type="checkbox" name="selecionados" value="${v.id}"></td>
-											<td style="text-align:center;"><button type="button" class="fa fa-edit" id="${v.id}">↓</button></td>
+											<td style="text-align:center;">
+											    <a href="downloadVpn/${v.id}" target="_blank" class="btn btn-outline-success btn-sm" title="Download">
+											        <i class="fa fa-download">↓</i>
+											    </a>
+											</td>
 											<td><c:out value="${v.id}"/></td>
 											<td><c:out value="${v.dt_criacao}"/></td>
 											<td><c:out value="${v.dt_validade}"/></td>
