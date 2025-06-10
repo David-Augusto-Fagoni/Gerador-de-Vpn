@@ -53,7 +53,32 @@ END //
 
 DELIMITER ;
 
+
 INSERT INTO funcionario (email, nome, permissao, ativo)
 VALUES ('david.fagoni@gmail.com@empresa.com.br', 'DAVEWQEW', 'Administrador', 1);
 INSERT INTO login (funcionario_email, usuario, senha)
 VALUES ('david.fagoni@gmail.com@empresa.com.br', 'Dave', '123456');
+SELECT * FROM vpn
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_procVpn(
+    IN p_id VARCHAR(80),
+    IN p_email VARCHAR(100)
+)
+BEGIN
+    SELECT 
+        v.dt_criacao,
+        v.dt_validade,
+        v.id,
+        v.funcionarioemail
+    FROM vpn v
+    WHERE v.id LIKE CONCAT('%', p_id, '%')
+      AND v.funcionarioemail = p_email;
+END $$
+
+DELIMITER ;
+
+DELIMITER //
+SELECT * FROM (CALL sp_procVpn('P', 'david.fagoni@gmail.com@empresa.com.br'))
+DELIMITER ;

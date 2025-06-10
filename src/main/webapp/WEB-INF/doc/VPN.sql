@@ -18,15 +18,30 @@ END
 
 CREATE FUNCTION fn_procNome (@nome VARCHAR (80))
 RETURNS @tabela TABLE (
-	ativo		bit,
-	email		VARCHAR(100),
-	nome		VARCHAR(255),
+	ativo			bit,
+	email			VARCHAR(100),
+	nome					VARCHAR(255),
 	permissao	VARCHAR(255)
 ) AS BEGIN
 	INSERT INTO @tabela (ativo, email, nome, permissao)
 	SELECT f.ativo, f.email, f.nome, f.permissao
 	FROM funcionario f
 	WHERE f.nome LIKE '%'+@nome+'%'
+	RETURN
+END
+
+CREATE FUNCTION fn_procVpn(@id VARCHAR (80), @email VARCHAR (100))
+RETURNS @tabela TABLE (
+	dt_criacao			DATE,
+	dt_validade			DATE,
+	id					VARCHAR(10),
+	funcionarioemail	VARCHAR(100)
+) AS BEGIN
+	INSERT INTO @tabela (dt_criacao, dt_validade, id, funcionarioemail)
+	SELECT v.dt_criacao, v.dt_validade, v.id, v.funcionarioemail
+	FROM vpn v
+	WHERE v.id LIKE '%'+@id+'%'
+	AND v.funcionarioemail = @email
 	RETURN
 END
 

@@ -19,11 +19,11 @@
 	                    <h1> Login </h1>
 	                    <div class="form-floating mb-3 mt-4">
 	                        <h2> Usuario </h2>
-	                        <input type="text" class="form-control input-height" placeholder="Nome de Usuario" id="floatingInput" name="usuarioFuncionario" value='<c:out value="${login.usuario}"></c:out>'>
+	                        <input type="text" class="form-control input-height" placeholder="Nome de Usuario" id="floatingInput" name="usuarioFuncionario">
 	                    </div>
 	                    <div class="form-floating mb-3 mt-4">
 	                        <h2> Senha </h2>
-	                        <input type="text" class="form-control input-height" placeholder="Senha de Usuario" id="floatingInput" name="senhaFuncionario" value='<c:out value="${login.senha}"></c:out>'>
+	                        <input type="password" class="form-control input-height" placeholder="Senha de Usuario" id="floatingInput" name="senhaFuncionario">
 	                    </div>
 	                    <div class="d-flex">
 	                        <a href="./esqueciSenha">Esqueci minha senha/Primeiro acesso</a>

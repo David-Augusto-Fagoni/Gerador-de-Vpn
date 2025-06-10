@@ -30,7 +30,7 @@ public class FuncionarioController {
 	private IndexController indexC;
 
 	@RequestMapping(name = "funcionario", value = "/funcionario", method = RequestMethod.GET)
-	public ModelAndView funcionarioGet(@RequestParam Map<String, String> params, ModelMap model,RedirectAttributes redirectAttributes,HttpServletRequest request) {
+	public ModelAndView funcionarioGet(@RequestParam Map<String, String> params, ModelMap model,HttpServletRequest request) {
 		switch (indexC.verificarLogin(request)) {
 			case "" -> {return new ModelAndView("redirect:/index");}
 			case "Funcionario" -> {return new ModelAndView("redirect:/vpn");}
@@ -73,7 +73,6 @@ public class FuncionarioController {
 	public ModelAndView acaoPost(@RequestParam Map<String, String> allRequestParam,@RequestParam(value = "selecionados", required = false) String[] selecionados,ModelMap model,RedirectAttributes redirectAttributes) {
 		String acao = allRequestParam.get("acao").trim();
 		String erro = "";
-	    System.out.println("Ação selecionada: " + acao);
 	    List<Funcionario> funcionarios = new ArrayList<>();
 	    if (selecionados != null) {
 	    	funcionarios = procurarFuncionarioById(selecionados);

@@ -27,46 +27,48 @@
 			<div></div>
 			<div>
 			    <div>
-			        <form action="/">
-			            <input type="text" placeholder="Search.." name="search">
+			        <form action="procurarVpn" method="post">
+			            <input type="text" placeholder="Search.." name="nomeVpn">
 			            <button type="submit"><i class="fa fa-search">Procurar</i></button>
+			            <b><c:out value="${erro}"/></b>
 			        </form>	
 			    </div>
 			
 			    <div style="display: grid; grid-template-columns: 20% 60% 20%; padding-top: 1%;">
-			        <button type="button" class="fa fa-edit"> Remover </button>
+			        <button type="button" id="btnRemover" class="fa fa-edit"> Remover </button>
 			        <div class="form-container m-auto border p-2" style="width: 100%; height: 100%; border-color:rgb(1,1,1) !important;"></div>
 			        <form action="vpn" method="post">
-			        	<button type="submit" class="fa fa-edit"> Novo </button>
+			        	<button type="submit" class="fa fa-edit" style="width: 100%;"> Novo </button>
 			        </form>
 			    </div>
-			
-			    <div class="form-container m-auto border p-2" style="max-width: 100%;">
-			        <table class="table" id="myTable">
-			            <thead>
-			                <tr>
-			                	<th style="width: 5%; text-align:center;">Seleção</th>
-			                	<th style="width: 5%; text-align:center;">Download</th>
-			                    <th style="width: 28%;" onclick="sortTable(0)">Identificador</th>
-			                    <th style="width: 35%;" onclick="sortTable(1)">Data</th>
-			                    <th style="width: 31%;" onclick="sortTable(2)">Validade</th>
-			                </tr>
-			            </thead>
-			            <tbody>
-							<c:if test="${not empty vpns}">
-								<c:forEach var="v" items="${vpns}">
-									<tr>
-										<td style="text-align:center;"><input type="checkbox" name="selecao${v.id}"></td>
-										<td style="text-align:center;"><button type="button" class="fa fa-edit" id="${v.id}">↓</button></td>
-										<td><c:out value="${v.id}"/></td>
-										<td><c:out value="${v.dt_criacao}"/></td>
-										<td><c:out value="${v.dt_validade}"/></td>
-									</tr>
-								</c:forEach>
-							</c:if>
-			            </tbody>
-			        </table>
-			    </div>
+				<form action="removerVpn" method="post" id="formRemoverVpn">
+				    <div class="form-container m-auto border p-2" style="max-width: 100%;">
+				        <table class="table" id="myTable">
+				            <thead>
+				                <tr>
+				                	<th style="width: 5%; text-align:center;">Seleção</th>
+				                	<th style="width: 5%; text-align:center;">Download</th>
+				                    <th style="width: 28%;" onclick="sortTable(2)">Identificador</th>
+				                    <th style="width: 35%;" onclick="sortTable(3)">Data</th>
+				                    <th style="width: 31%;" onclick="sortTable(4)">Validade</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+								<c:if test="${not empty vpns}">
+									<c:forEach var="v" items="${vpns}">
+										<tr>														
+											<td style="text-align:center;"><input type="checkbox" name="selecionados" value="${v.id}"></td>
+											<td style="text-align:center;"><button type="button" class="fa fa-edit" id="${v.id}">↓</button></td>
+											<td><c:out value="${v.id}"/></td>
+											<td><c:out value="${v.dt_criacao}"/></td>
+											<td><c:out value="${v.dt_validade}"/></td>
+										</tr>
+									</c:forEach>
+								</c:if>
+				            </tbody>
+				        </table>
+				    </div>
+			    </form>
 		    </div>
 		</div>
 	</div>
@@ -125,6 +127,11 @@
 			        }
 			      }
 			    }
+		</script>
+		<script>
+		    document.getElementById("btnRemover").addEventListener("click", function () {
+		        document.getElementById("formRemoverVpn").submit();
+		    });
 		</script>
 	</body>
 </html>

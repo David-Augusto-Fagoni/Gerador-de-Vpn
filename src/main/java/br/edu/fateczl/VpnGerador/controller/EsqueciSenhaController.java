@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.fateczl.VpnGerador.model.Login;
 import br.edu.fateczl.VpnGerador.model.TokenRedefinicao;
@@ -55,11 +56,12 @@ public class EsqueciSenhaController {
 	}
 
 	@RequestMapping(name = "redefinirSenha", value = "/redefinirSenha", method = RequestMethod.GET)
-	public ModelAndView redefinirSenhaGet(@RequestParam("token") String token, ModelMap model) {
+	public ModelAndView redefinirSenhaGet(@RequestParam("token") String token, ModelMap model,RedirectAttributes redirectAttributes) {
 		TokenRedefinicao tokenEntity = tokenRep.findById(token).orElse(null);
 	    if (tokenEntity == null || tokenEntity.getExpiracao().isBefore(LocalDateTime.now())) {
 	        model.addAttribute("erro", "Token inválido ou expirado.");
-	        return new ModelAndView("erroToken", model);
+	        redirectAttributes.addFlashAttribute("erro","Token inválido ou expirado.");
+	        return new ModelAndView("redirect:/index");
 	    }
 		return new ModelAndView("redefinirSenha");
 	}
