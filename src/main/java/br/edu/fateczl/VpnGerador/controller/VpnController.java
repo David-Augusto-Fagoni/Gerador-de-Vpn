@@ -1,6 +1,8 @@
 package br.edu.fateczl.VpnGerador.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -58,9 +60,15 @@ public class VpnController {
 		vpn.setFuncionario(funcionarioRep.findById(email).get());
 		vpn.setId(gerarId());
 		
-		ProcessBuilder pb = new ProcessBuilder("sudo","/home/userlinux", "VPNscript.sh", login.getUsuario(), login.getSenha(), vpn.getId());
+		ProcessBuilder pb = new ProcessBuilder("sudo","/home/userlinux/VPNscript.sh", login.getUsuario(), login.getSenha(), vpn.getId());
 		try {
-			pb.start();
+			Process process = pb.start();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String linha;
+			while ((linha = reader.readLine()) != null) {
+			    System.out.println(linha);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
