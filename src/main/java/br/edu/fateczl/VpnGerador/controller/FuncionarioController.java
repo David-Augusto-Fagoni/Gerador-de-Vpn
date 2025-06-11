@@ -61,7 +61,7 @@ public class FuncionarioController {
 			}else {
 				administrador = "Funcionario";
 			}
-			Funcionario funcionario = new Funcionario(email+"@empresa.com.br", nome,administrador,true);
+			Funcionario funcionario = new Funcionario(email+"@gmail.com", nome,administrador,true);
 			Login login = new Login(usuario,"",funcionario);
 			funcionario.setLogin(login);
 			cadastrarFuncionario(funcionario);

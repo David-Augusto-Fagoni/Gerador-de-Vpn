@@ -35,19 +35,19 @@ public class EsqueciSenhaController {
 
 	@RequestMapping(name = "esqueciSenha", value = "/esqueciSenha", method = RequestMethod.POST)
 	public ModelAndView esqueciSenhaPost(@RequestParam Map<String, String> params, ModelMap model) {
-		String email = "david.fagoni@gmail.com";
-		if(loginRep.existsById(email+"@empresa.com.br")) {
-			tokenRep.sp_del_token(email+"@empresa.com.br");
+		String email = params.get("emailFuncionario").trim();
+		if(loginRep.existsById(email)) {
+			tokenRep.sp_del_token(email);
 			String token = UUID.randomUUID().toString();
 			TokenRedefinicao tr = new TokenRedefinicao();
 			tr.setToken(token);
-			tr.setLogin(loginRep.findById(email+"@empresa.com.br").get());
+			tr.setLogin(loginRep.findById(email).get());
 			tr.setExpiracao(LocalDateTime.now().plusHours(1));
 			tokenRep.save(tr);
-			String linkRedefinicao = "http://localhost:8080/VPN/redefinirSenha?token=" + token;
+			String linkRedefinicao = "http://192.168.200.2:8080/VPN/redefinirSenha?token=" + token;
 	        String corpo = "Olá,\n\nClique no link abaixo para redefinir sua senha:\n" + linkRedefinicao +
-                    "\n\nSe você não solicitou isso, entre em contato com a administração.";
-	        emailService.enviarEmail(email, "Redefinição de Senha", corpo);
+                    "\n\nSe você não solicitou isso, apenas ignore.";
+	        emailService.enviarEmail(email, "Redefinição de Senha: "+token, corpo);
 	        model.addAttribute("mensagem", "Email de redefinição enviado com sucesso!");
 		} else {
 			model.addAttribute("erro", "Email não encontrado.");
@@ -59,7 +59,6 @@ public class EsqueciSenhaController {
 	public ModelAndView redefinirSenhaGet(@RequestParam("token") String token, ModelMap model,RedirectAttributes redirectAttributes) {
 		TokenRedefinicao tokenEntity = tokenRep.findById(token).orElse(null);
 	    if (tokenEntity == null || tokenEntity.getExpiracao().isBefore(LocalDateTime.now())) {
-	        model.addAttribute("erro", "Token inválido ou expirado.");
 	        redirectAttributes.addFlashAttribute("erro","Token inválido ou expirado.");
 	        return new ModelAndView("redirect:/index");
 	    }
@@ -71,10 +70,11 @@ public class EsqueciSenhaController {
 		String senhaNova = allRequestParam.get("novaSenha").trim();
 		String senhaNovaC = allRequestParam.get("confirmarSenha").trim();
 		String erro = validar(senhaNova,senhaNovaC);
-		if(erro == "") {
+		if(erro == "" && tokenEntity != null) {
 			Login login = tokenEntity.getLogin();
 			login.setSenha(senhaNovaC);
 			loginRep.save(login);
+			tokenRep.delete(tokenEntity);
 		}
 
 		model.addAttribute("novaSenha", senhaNova);
