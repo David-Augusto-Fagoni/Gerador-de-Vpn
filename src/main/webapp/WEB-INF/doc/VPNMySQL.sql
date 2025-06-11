@@ -58,7 +58,7 @@ INSERT INTO funcionario (email, nome, permissao, ativo)
 VALUES ('david.fagoni@gmail.com@empresa.com.br', 'DAVEWQEW', 'Administrador', 1);
 INSERT INTO login (funcionario_email, usuario, senha)
 VALUES ('david.fagoni@gmail.com@empresa.com.br', 'Dave', '123456');
-SELECT * FROM vpn
+SELECT * FROM token_redefinicao
 
 DELIMITER $$
 

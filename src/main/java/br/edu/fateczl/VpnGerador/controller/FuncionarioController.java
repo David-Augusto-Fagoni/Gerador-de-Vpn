@@ -143,7 +143,8 @@ public class FuncionarioController {
 		if (email.length() > 80) {return ("Email deve ter menos de 80 caracteres");}
 		Funcionario funcionario = consultarFuncionario(email+"@empresa.com.br");
 		if (funcionario != null) {return ("Email ja cadastrado");}
-		if(usuario.length()>70) {return ("Usuario deve ter menos de 70 caracteres");}
+		if(usuario.length()>30) {return ("Usuario deve ter menos de 30 caracteres");}
+		if(usuario.length()<3) {return ("Usuario deve ter mais de 3 caracteres");}
 		if(loginRep.fn_procUsuario(usuario) != null) {return ("Usuario ja existe");}
 		if(nome.length()>200) {return ("Usuario deve ter menos de 200 caracteres");}
 		return "";

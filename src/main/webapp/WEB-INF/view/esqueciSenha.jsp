@@ -16,6 +16,7 @@
 				    <input type="text" placeholder="Email" id="floatingInput" name="emailFuncionario">
 				    <button type="submit">Enviar</button>
 				</form>
+				<b><c:out value="${erro}"/></b>
 			</div>
 		</div>
 	</body>
