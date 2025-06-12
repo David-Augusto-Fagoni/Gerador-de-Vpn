@@ -1,0 +1,31 @@
+Gateway:
+
+allow-hotplug enp0s3
+iface enp0s3 inet dhcp
+
+auto enp0s8
+iface enp0s8 inet static
+	address 192.168.200.1
+	netmask 255.255.255.0
+	network 192.168.200.0
+	broadcast 192.168.200.255
+
+OpenVpnServer:
+
+allow-hotplug enp0s3
+iface enp0s3 inet static
+	address 192.168.200.2
+	netmask 255.255.255.0
+	network 192.168.200.0
+	gateway 192.168.200.1
+	dns-nameservers 8.8.8.8
+
+MySQL:
+
+allow-hotplug enp0s3
+iface enp0s3 inet static
+	address 192.168.200.3
+	netmask 255.255.255.0
+	network 192.168.200.0
+	gateway 192.168.200.1
+	dns-nameservers 8.8.8.8
