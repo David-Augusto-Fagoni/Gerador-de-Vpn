@@ -53,7 +53,7 @@ public class EsqueciSenhaController {
 			tr.setLogin(loginRep.findById(email).get());
 			tr.setExpiracao(LocalDateTime.now().plusHours(1));
 			tokenRep.save(tr);
-			// O IP a baixo deve ser substituido pelo ip publico do gateway
+			//----- O IP a baixo deve ser substituido pelo ip publico do gateway -----
 			String linkRedefinicao = "http://192.168.1.12:8080/VPN/redefinirSenha?token=" + token;
 	        String corpo = "Olá,\n\nClique no link abaixo para redefinir sua senha:\n" + linkRedefinicao +
                     "\n\nSe você não solicitou isso, apenas ignore.";
