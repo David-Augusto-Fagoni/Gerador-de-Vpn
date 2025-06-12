@@ -82,3 +82,5 @@ DELIMITER ;
 DELIMITER //
 SELECT * FROM (CALL sp_procVpn('P', 'david.fagoni@gmail.com@empresa.com.br'))
 DELIMITER ;
+SELECT * FROM ip_bloqueado
+DELETE FROM ip_bloqueado WHERE ip = '0:0:0:0:0:0:0:1';

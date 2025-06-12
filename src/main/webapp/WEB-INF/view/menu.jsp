@@ -6,7 +6,9 @@
 		<div style="width: 100%;height: 100%;">
 			<div class="m-auto border p-2" style="width: 100%;height: 100%;display:grid;grid-template-columns: 100%;">
 				<p>Opçoes:</p>
-				<a href = "funcionario" style="padding-left: 3px;">•Funcionário</a>
+				<c:if test="${sessionScope.permissao == 'Administrador'}">
+					<a href = "funcionario" style="padding-left: 3px;">•Funcionário</a>
+				</c:if>
 				<a href = "vpn" style="padding-left: 3px;">•VPN</a>
 			</div>
 		</div>

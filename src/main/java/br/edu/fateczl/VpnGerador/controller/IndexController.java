@@ -46,9 +46,11 @@ public class IndexController {
 		login.setUsuario(usuario);
 		login.setSenha(senha);
 		if ( erro == "") {
-			if (loginRep.fn_login(usuario,senha) != null) {
+			String permissao = loginRep.fn_login(usuario,senha);
+			if (permissao != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("login", login);
+				session.setAttribute("permissao", permissao.trim());
 				loginAttemptService.loginSucceeded(ip);
 				return new ModelAndView("redirect:/vpn");
 			} else {
@@ -81,7 +83,7 @@ public class IndexController {
 	private String validar (String usuario, String senha) {
 		if(usuario == null || usuario == "") {return "Usuario deve ser preenchido";}
 		if(senha == null || senha == "") {return "Senha deve ser preenchido";}
-		if(usuario.length() > 80 || senha.length() > 30) {return "Login invalido";}
+		if(usuario.length() > 80 || senha.length() > 30 || usuario.length() < 3) {return "Login invalido";}
 		return "";
 	}
 	private String getClientIP(HttpServletRequest request) {
